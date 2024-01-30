@@ -1,0 +1,69 @@
+const cart = ["shirt","jeans","tshirt","jerkins"];
+const payment = [];
+createOrder(cart)
+.then(function(orderId){
+    console.log(orderId + " order created");
+    return proceedPayment();
+    
+}).then(function(paymentId){
+    console.log(paymentId);
+    console.log("payment done")
+    return proceedPayment(payment);
+    
+
+}).then(function(paymentId){
+    return showOrderSummary();
+}).then(function(resolve){
+    console.log(resolve);
+    return updateWallet();
+}).then(function(resolve){
+    console.log(resolve);
+
+})
+.catch(function(err){
+    console.log(err.message)
+})
+
+function createOrder(cart){
+    return new Promise(function(resolve,reject){
+        if(!validateCart(cart)){
+            const err = new Error("your cart is empty")
+            reject(err);
+        }
+        const orderId = 1234;
+        if(orderId){
+            setTimeout(()=>{resolve(orderId)},500)
+            
+        }
+    })
+}   
+function validateCart(cart){
+    return true;
+}
+
+function proceedPayment(){
+    return new Promise((resolve,reject)=>{
+        if(!validatePayment(payment)){
+            const err = new Error("Payment Error");
+            reject(err);
+        }
+        const paymentId = 5678;
+        if(paymentId){
+            setTimeout(()=>{resolve(paymentId)},500);
+        }
+    })}
+function validatePayment(payment){
+    return true;
+}
+function showOrderSummary(){
+    return new Promise(function(resolve,reject){
+        resolve("order summary");
+    })
+}
+function updateWallet(){
+    return new Promise(function(resolve,reject){
+        resolve("wallet updated");  
+    })
+}
+
+
